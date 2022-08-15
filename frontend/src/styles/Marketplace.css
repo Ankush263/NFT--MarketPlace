@@ -1,0 +1,77 @@
+.marketplace {
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background: rgb(255,0,0);
+  background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(0,0,0,1) 100%);
+
+  /* background-image: url('./bg1.jpg'); */
+  /* background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%); */
+  /* height: 100vh; */
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  width: 90rem;
+  background: rgba(225, 225, 225, 0.227);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(225, 225, 225, 0.586);
+  border-right: 1px solid rgba(225, 225, 225, 0.2);
+  border-bottom: 1px solid rgba(225, 225, 225, 0.2);
+  border-radius: 20px;
+  z-index: 10;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  
+  justify-content: flex-start;
+}
+
+.elements {
+  position: relative;
+  background: rgba(225, 225, 225, 0.227);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(225, 225, 225, 0.586);
+  border-right: 1px solid rgba(225, 225, 225, 0.2);
+  border-bottom: 1px solid rgba(225, 225, 225, 0.2);
+  border-radius: 20px;
+  z-index: 10;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  display: grid;
+  /* flex-direction: column; */
+  gap: 2rem;
+  /* justify-content: flex-end; */
+}
+
+.banners {
+  display: flex;
+  justify-content: space-between;
+}
+
+.marketplace-banner {
+  width: 45rem;
+  border-radius: 20px;
+}
+
+.marketplace-img {
+  width: 25rem;
+}
+
+.nft-collection {
+  /* display: flex;
+  justify-content: flex-start;
+  gap: 200px; */
+  margin-left: 5em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
