@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Marketplace from './components/Marketplace';
+import Profile from './components/Profile';
+import CreateNFT from './components/CreateNFT';
+import NFTTitle from './components/NFTTitle';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Marketplace />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/create' element={<CreateNFT />} />
+        <Route path='/nfttitle' element={<NFTTitle />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
