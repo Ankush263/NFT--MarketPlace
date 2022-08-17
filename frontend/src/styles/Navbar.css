@@ -33,14 +33,9 @@
 
 .nav-head {
   font-size: 40px;
-  /* -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
-  /* background: linear-gradient(to right, #30CFD0 0%, #330867 100%); */
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-  /* color: rgb(0,0,0);
-  color: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%); */
 }
 
 .nav-items {
@@ -48,10 +43,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: rgba(191, 222, 222, 0.375); */
-  /* border-radius: 5px; */
-  /* padding: 2px 10px; */
-  
 }
 
 .nav-items {
@@ -71,11 +62,11 @@
   color: rgb(0, 70, 0);
 
 }
-/*
-.nav-items:enabled {
-  color: gold;
-} */
 
 .small-logos {
   width: 50px;
+}
+
+.col-green {
+  color: green;
 }
