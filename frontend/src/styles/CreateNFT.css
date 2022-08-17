@@ -4,10 +4,6 @@
   background-repeat: no-repeat;
   background: rgb(255,0,0);
   background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(0,0,0,1) 100%);
-
-  /* background-image: url('./bg1.jpg'); */
-  /* background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%); */
   height: 100vh;
   background-size: cover;
   display: flex;
@@ -36,9 +32,6 @@
   display: grid;
   min-width: 20rem;
   min-height: 29rem;
-  /* flex-direction: column; */
-  /* gap: 2rem; */
-  /* justify-content: flex-end; */
 }
 
 .createnft-img {
@@ -47,4 +40,39 @@
 
 .c {
   width: 22em;
+}
+
+.create-pt {
+  color: rgb(117, 12, 12);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em;
+}
+
+.input {
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.69em;
+}
+
+.upload-txt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 25px;
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%); 
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.upload-img {
+  width: 20rem;
+  height: 29rem;
+}
+
+.list-nft-btn:disabled {
+  background: whitesmoke;
 }
