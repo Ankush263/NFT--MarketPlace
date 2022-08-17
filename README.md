@@ -21,7 +21,7 @@ This is an Anime NFT market place. Here you can see all Anime NFTs. You can buy 
 ### Home Page
 
 <p align="center">
-  <img alt="image1" src="./Readme-img/NFT-Marketplace1.gif" width="100%" />
+  <img alt="image1" src="./Readme-img/NFT-Marketplace1-low.gif" width="100%" />
 </p>
 
 When you enter this site, you can see some default NFTs (Demo NFT). First you have to connect your wallet by clicking connect wallet button. Then after refreshing you can see some NFTs showed up into home page. This NFTs are besically all previous users. You can see details of that NFT by clicking each of the NFT card.
