@@ -4,10 +4,6 @@
   background-repeat: no-repeat;
   background: rgb(255,0,0);
   background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(0,0,0,1) 100%);
-
-  /* background-image: url('./bg1.jpg'); */
-  /* background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%); */
   min-height: 100vh;
   background-size: cover;
   display: flex;
@@ -47,7 +43,6 @@
 
 .profile-nft {
   position: relative;
-  /* width: 90rem; */
   min-height: 20rem;
   background: rgba(225, 225, 225, 0.227);
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
@@ -76,7 +71,7 @@
 
 .profile-nft-collection {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .pt {
