@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Marketplace from './components/Marketplace';
@@ -16,9 +14,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Marketplace />} />
-        <Route path='/profile' element={<Profile />} />
         <Route path='/create' element={<CreateNFT />} />
-        <Route path='/nfttitle' element={<NFTTitle />} />
+        <Route path='/nfttitle/:tokenId' element={<NFTTitle />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
