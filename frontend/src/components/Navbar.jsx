@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -8,8 +8,58 @@ import logo from '../images/Otaku.jpg';
 import small_logo1 from '../images/naruto.png';
 import small_logo2 from '../images/deku.png';
 import { Link } from 'react-router-dom';
+import { ethers } from 'ethers';
+import { useLocation } from 'react-router';
+
 
 const Navbar = () => {
+
+  const [connect, setConnect] = useState(false)
+
+  const location = useLocation()
+
+
+  // Connect Wallet functionality-------------------------------------------
+
+  const Connect = async () => {
+
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+
+    if(chainId != '0x5') {
+
+      await window.ethereum.request({   // This gives alert Incorrect network!, switch into Goerli
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x5' }],
+      })
+
+    }
+
+    await window.ethereum.request({ method: 'eth_requestAccounts' })
+
+    setConnect(true)
+
+      .then(() => {
+        
+        window.location.replace(location.pathname)
+
+      })
+
+    
+
+  }
+
+  useEffect(() => {
+
+    window.ethereum.on('accountsChanged', (accounts) => {
+      
+      window.location.replace(location.pathname)
+
+    })
+
+  }, [])
+
+  
+
   return (
     <div className='navbar'>
       <div className="nav--first">
@@ -38,9 +88,9 @@ const Navbar = () => {
           </label>
         </Link>
         <div>
-          <label className='nav-items' htmlFor="connect wallet">
-            <AccountBalanceWalletIcon fontSize='large' />
-            Connect Wallet
+          <label onClick={Connect} className='nav-items' htmlFor="connect wallet">
+            <AccountBalanceWalletIcon fontSize='large' color={connect ? 'success' : ''} />
+            {connect ? <strong className='col-green'>Connected</strong> : <strong>Connect Wallet</strong>}
           </label>
         </div>
       </div>
