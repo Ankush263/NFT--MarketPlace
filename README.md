@@ -55,4 +55,8 @@ In Profile page, you can see the NFTs you have owned, as well as here you can se
 
 ### Buy NFT:
 
+<p align="center">
+  <img alt="image1" src="./Readme-img/NFT-Marketplace1-buynft.gif" width="100%" />
+</p>
+
 In NFT title page you can see each of the NFTs in details. In this page you can see the Buy NFT button in those NFTs which you have not owned. You can buy those NFTs by clicking Buy NFT button, you have to pay the exact price that are given in those NFTs.
