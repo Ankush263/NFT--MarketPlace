@@ -17,6 +17,8 @@ async function main() {
 
   //This writes the ABI and address to the mktplace.json
   fs.writeFileSync('./Marketplace.json', JSON.stringify(data))
+
+  console.log("NFTMarketplace deployed to: ", marketplace.address)
 }
 
 main()
