@@ -1,4 +1,4 @@
-require("@nomicfoundation/hardhat-toolbox");
+// require("@nomicfoundation/hardhat-toolbox");
 require('@nomiclabs/hardhat-ethers');
 require('@nomiclabs/hardhat-waffle');
 require('dotenv').config();
@@ -15,6 +15,11 @@ module.exports = {
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/${process.env.API_KEY}`,
       accounts: [PRIVATE_KEY]
-    }
+    },
+    // hardhat: {
+    //   // blockGasLimit: 0x1fffffffffffff,
+    //   chainId: 31337,
+    //   // allowUnlimitedContractSize: true,
+    // },
   }
 };
