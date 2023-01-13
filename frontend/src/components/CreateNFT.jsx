@@ -26,21 +26,13 @@ const CreateNFT = () => {
     let file = e.target.files[0]    // NFT Image that you selected 
 
     try {
-
       const response = await uploadFileToIPFS(file)
-
       if(response.success === true) {
-
         setFileURL(response.pinataURL)    // response.pinataURL is the Image URL that you uploaded in Pinata
-
         setUploadedImage(response.pinataURL)
-
       }
-      
     } catch (error) {
-      
       console.log("Upload Image to IPFS Error: ", error)
-
     }
 
   }
@@ -49,88 +41,58 @@ const CreateNFT = () => {
   // Upload Metadata to IPFS--------------------------------------------
 
   const uploadMetadataToIPFS = async () => {
-
     const { animeName, characterName, description, price } = fromDesc
-
     if(!animeName || !characterName || !description || !price || !fileURL) {
-
       return
-
     }
 
     const nftJSON = {
-
       animeName, characterName, description, price, image: fileURL
-
     }
 
     try {
-
       const response = await uploadJSONToIPFS(nftJSON)
-
       if(response.success === true) {
-
         return response.pinataURL   // response.pinataURL is the Metadata URL that you uploaded in Pinata
-
       }
-      
     } catch (error) {
-      
       console.log("Upload Metadata to IPFS Error: ", error)
-
     }
-
   }
 
 
   // upload NFT to the BlockChain-------------------------------
 
   const submit = async (e) => {
-
     setDisabled(true)
-
     e.preventDefault()
 
     try {
-      
       const metadataURL = await uploadMetadataToIPFS()
-
-      const provider = await new ethers.providers.Web3Provider(window.ethereum)
-
-      const signer = await provider.getSigner()
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
 
       updateMessage("Please wait.. uploading (upto 5 mins)")
 
-      let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)    // Creating an Instance of contract
+      let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
 
-      const price = await ethers.utils.parseUnits(fromDesc.price, 'ether')
-
-      let listingPrice = await contract.getListPrice()
-
+      const price = ethers.utils.parseUnits(fromDesc.price, 'ether')
+      let listingPrice = await contract.getListingPrice()
       listingPrice = listingPrice.toString()
 
-      let transactions = await contract.createToken(metadataURL, price, { value: listingPrice })
-
+      let transactions = await contract.createNFT(metadataURL, price, { value: listingPrice })
       await transactions.wait()
 
       alert("Successfully listed your NFT!!!")
-
-      setDisabled(false)
-
-      updateMessage('')
-
-      setUploadedImage('')
-
-      setFromDesc({ animeName: '', characterName: '', description: '', price: 0 })
-
-      window.location.replace("/")
-
-    } catch (error) {
       
+      setDisabled(false)
+      updateMessage('')
+      setUploadedImage('')
+      setFromDesc({ animeName: '', characterName: '', description: '', price: 0 })
+      window.location.replace("/")
+    } catch (error) {
       alert("Upload Error: "+error)
-
       console.log("Upload Error: ", error)
-
     }
 
   }

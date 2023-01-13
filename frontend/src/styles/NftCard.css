@@ -50,3 +50,8 @@
 .nft-data-price {
   display: flex;
 }
+
+.dash {
+  margin-left: 2px;
+  margin-right: 2px;
+}

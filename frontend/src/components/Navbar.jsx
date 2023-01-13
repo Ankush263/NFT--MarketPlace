@@ -25,14 +25,14 @@ const Navbar = () => {
 
     const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 
-    if(chainId != '0x5') {
+    // if(chainId != '0x5') {
 
-      await window.ethereum.request({   // This gives alert Incorrect network!, switch into Goerli
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x5' }],
-      })
+    //   await window.ethereum.request({   // This gives alert Incorrect network!, switch into Goerli
+    //     method: 'wallet_switchEthereumChain',
+    //     params: [{ chainId: '0x5' }],
+    //   })
 
-    }
+    // }
 
     await window.ethereum.request({ method: 'eth_requestAccounts' })
 

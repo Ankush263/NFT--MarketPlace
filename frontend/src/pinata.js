@@ -1,6 +1,9 @@
 // require('dotenv').config();
-const key = process.env.REACT_APP_PINATAKEY;
-const secret = process.env.REACT_APP_PINATASECRET;
+// const key = process.env.REACT_APP_PINATAKEY;
+// const secret = process.env.REACT_APP_PINATASECRET;
+
+const key = '0862df390ff1d8861a14'
+const secret = '823d0eab14bbd6706e7c2fc8e398840ac25ce234950fa363afc1c6e04040b060'
 
 const axios = require('axios');
 const FormData = require('form-data');
