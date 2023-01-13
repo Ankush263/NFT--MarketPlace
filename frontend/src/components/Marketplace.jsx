@@ -44,23 +44,22 @@ const Marketplace = () => {
   // Using this function you can show your added nfts into the home screen------------------------------------
 
   const getAllNFTs = async () => {
-      
-    const provider = await new ethers.providers.Web3Provider(window.ethereum)
-
-    const signer = await provider.getSigner()
-
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
     const contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
 
-    let transaction = await contract.getAllNFTs()
+    let transaction = await contract.fetchAllNFTs()
 
     const items = await Promise.all(transaction.map(async i => {
-
       const tokenURI = await contract.tokenURI(i.tokenId)
-
-      let meta = await axios.get(tokenURI)
-
-      meta = meta.data
-
+      // let meta = await axios.get(tokenURI)
+      let meta
+      await fetch(tokenURI)
+        .then(res => res.json())
+        .then(data => {
+          return meta = data
+        })
+      // meta = meta.data
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
 
       let item = {

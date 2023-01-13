@@ -9,6 +9,7 @@ import MarketplaceJSON from '../Marketplace.json';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import ListNFTButtons from './ListNFTButtons';
 
 
 
@@ -19,30 +20,27 @@ const NFTTitle = () => {
   const [currAddress, updateCurrAddress] = useState("0x")
   const [message, updateMessage] = useState("")
   const [disabled, setDisabled] = useState(false)
-
+  const [price, setPrice] = useState(0)
 
   // Using this function you can show your added nfts into the home screen------------------------------------
 
   const getNFTData = async (tokenId) => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-    const signer = await provider.getSigner()
-
+    const signer = provider.getSigner()
     const addr = await signer.getAddress()
-
-    const contract = await new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
-
+    const contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
+    const NFT = await contract.getListedTokenForId(tokenId)
+    setPrice(Number(NFT.price) / 10 ** 18)
+    // console.log(NFT.price.toString())
     const tokenURI = await contract.tokenURI(tokenId)
-
     const listedToken = await contract.getListedTokenForId(tokenId)
-
     let meta = await axios.get(tokenURI)
-
     meta = meta.data
 
     let item = {
-      price: meta.price,
+      // price: meta.price,
+      price: Number(NFT.price) / 10 ** 18,
       tokenId: tokenId,
       seller: listedToken.seller,
       owner: listedToken.owner,
@@ -53,11 +51,8 @@ const NFTTitle = () => {
     }
 
     updateDataFetched(true)
-
     updateData(item)
-
     updateCurrAddress(addr)
-
   }
 
 
@@ -66,35 +61,27 @@ const NFTTitle = () => {
   const buyNFT = async (tokenId) => {
 
     try {
-      
-      const provider = await new ethers.providers.Web3Provider(window.ethereum)
-
-      const signer = await provider.getSigner()
-
-      const contract = await new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
-
-      const salePrice = ethers.utils.parseUnits(data.price, 'ether')
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
+      const salePrice = ethers.utils.parseUnits(price.toString(), 'ether')
 
       updateMessage("Buying the NFT... Please Wait (Upto 5 mins)")
-
       setDisabled(true)
+      console.log(price)
 
-      let transaction = await contract.executeSale(tokenId, { value: salePrice })
-
+      let transaction = await contract.buyNFT(tokenId, { value: salePrice })
       await transaction.wait()
+      console.log(salePrice)
 
       alert('You successfully bought the NFT!😍')
-
       updateMessage("")
+      window.location.replace("/")
 
     } catch (error) {
-
       updateMessage("")
-
       setDisabled(false)
-
       alert("Upload Error: " + error)
-      
       console.log("BuyNFT Error: ", error)
 
     }
@@ -134,28 +121,50 @@ const NFTTitle = () => {
               Owner: {data.owner}
             </strong>
             <strong className='info-desc-text pt'>
-              Seller: {data.seller}
+              Seller: 
+              {
+                data.seller == "0x0000000000000000000000000000000000000000" ? 
+                <span> Not Listed yet</span> : 
+                data.seller
+              }
             </strong>
             <strong className='info-desc-text pt'>
               NFT Price: {data.price}
               <img className='small-logo' src={ethereum} />
             </strong>
-            {currAddress == data.owner || currAddress == data.seller ?
-            <strong className='info-desc-text'>
-            You are the owner of this NFT
-            </strong>:
-            <Button 
-              onClick={() => buyNFT(tokenId)}
-              disabled={disabled}
-              className='list-nft-btn' 
-              variant="contained" 
-              style={{
-                borderRadius: 15,
-                fontSize: "18px",
-                background: "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%)",
-            }}>
-              Buy This NFT
-            </Button>}
+            {
+              currAddress == data.owner ?
+
+              <div className="buy-nft-btn">
+                <ListNFTButtons nftId={data.tokenId} />
+              </div>
+
+               : currAddress == data.seller ?
+
+              <strong className='info-desc-text'>
+                Already Listed
+              </strong>
+
+              :
+
+              data.seller == "0x0000000000000000000000000000000000000000" ?
+              <strong className='info-desc-text'>
+                Not Listed yet
+              </strong>
+              :
+              <Button 
+                onClick={() => buyNFT(tokenId)}
+                disabled={disabled}
+                className='list-nft-btn' 
+                variant="contained" 
+                style={{
+                  borderRadius: 15,
+                  fontSize: "18px",
+                  background: "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(201,3,3,1) 100%)",
+              }}>
+                Buy This NFT
+              </Button>
+            }
             <div className='info-desc-text'>{message}</div>
           </div>
         </div>

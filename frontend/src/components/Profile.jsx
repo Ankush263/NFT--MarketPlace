@@ -21,25 +21,17 @@ const Profile = () => {
   const getNFTData = async (tokenId) => {
 
     let sumPrice = 0
-
-    const provider = await new ethers.providers.Web3Provider(window.ethereum)
-
-    const signer = await provider.getSigner()
-
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
     const addr = await signer.getAddress()
+    const contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
 
-    const contract = await new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
-
-    let transaction = await contract.getMyNFTs()
-
+    let transaction = await contract.fetchMyNFTs()
     const items = await Promise.all(transaction.map(async i => {
 
       const tokenURI = await contract.tokenURI(i.tokenId)
-
       let meta = await axios.get(tokenURI)
-
       meta = meta.data
-
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       
       let item = {
@@ -58,15 +50,10 @@ const Profile = () => {
       return item
 
     }))
-
     updateData(items)
-
     updateFetched(true)
-
     updateAddress(addr)
-
     updateTotalPrice(sumPrice.toPrecision(3))
-
   }
 
   const params = useParams()

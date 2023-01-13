@@ -1,6 +1,7 @@
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
 const fs = require("fs");
+const cors = require("cors")
 
 async function main() {
   const [deployer] = await ethers.getSigners();
